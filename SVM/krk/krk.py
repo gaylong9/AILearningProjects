@@ -145,7 +145,7 @@ def trainAndSaveModel(test=True):
 
 
 def loadModelAndTest():
-    """从保存的文件中读取测试数据与模型，然后测试"""
+    """从保存的文件中读取测试数据与模型，测试，保存结果"""
     # file = open('model.pkl', 'rb')
     # model = pk.load(file)
     # file.close()
@@ -157,6 +157,17 @@ def loadModelAndTest():
     testY = pk.load(file)
     file.close()
     labels, acc, vals = svm_predict(testY, testX, model)
+    print(labels)
+    print(vals)
+    file = open('predictAcc.data', 'wb')
+    pk.dump(acc, file)
+    file.close()
+    file = open('predictLabels.data', 'wb')
+    pk.dump(labels, file)
+    file.close()
+    file = open('predictVals.data', 'wb')
+    pk.dump(vals, file)
+    file.close()
 
 
 def temp():
@@ -165,6 +176,6 @@ def temp():
 
 if __name__ == '__main__':
     """重新训练或加载模型以测试"""
-    trainAndSaveModel(test=True)   # 重新训练并保存测试数据和模型
-    # loadModelAndTest()    # 读取模型并测试数据，测试
+    # trainAndSaveModel(test=True)   # 重新训练并保存测试数据和模型
+    loadModelAndTest()    # 读取模型并测试数据
     # temp()
